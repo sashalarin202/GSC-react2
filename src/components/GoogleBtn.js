@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import axios from 'axios';
+import Dashboard from './Dashboard/DashBoard';
 
 const CLIENT_ID = '58204115475-l0adfrri5pf9nrih03c541pv9i563n3n.apps.googleusercontent.com';
 
@@ -19,7 +20,7 @@ function GoogleBtn() {
         const startDate = '2023-06-07';
         const endDate = '2023-09-07';
         const dimensions = ['PAGE'];
-        const rowLimit= 10;
+        const rowLimit= 100;
         try {
           const response = await axios.post(
             'https://searchconsole.googleapis.com/webmasters/v3/sites/sc-domain%3Aenguide.pl/searchAnalytics/query?',
@@ -65,13 +66,15 @@ function GoogleBtn() {
   return (
     <div>
       {isLogined ? (
-        <GoogleLogout
+        <>
+          <GoogleLogout
           clientId={CLIENT_ID}
           buttonText='Logout'
           onLogoutSuccess={logout}
           onFailure={handleLogoutFailure}
         />
-        // <Dashboard></Dashboard>
+        <Dashboard data={data}></Dashboard>
+        </>
       ) : (
         <GoogleLogin
           clientId={CLIENT_ID}
