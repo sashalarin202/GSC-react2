@@ -1,24 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import GoogleBtn from './components/GoogleBtn';
+import { useEffect } from 'react';
+import { gapi } from 'gapi-script';
+import React from 'react';
+
+const clienId = "58204115475-l0adfrri5pf9nrih03c541pv9i563n3n.apps.googleusercontent.com";
 
 function App() {
+
+  useEffect(() => {
+    function start(){
+      gapi.client.init({
+        clienId: clienId,
+        scope: ['https://www.googleapis.com/auth/webmasters.readonly'].join(' ')
+      })
+    }
+    gapi.load("client:auth2", start)
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GoogleBtn />
+    </>
   );
 }
 
