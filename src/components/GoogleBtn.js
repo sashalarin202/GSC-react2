@@ -20,7 +20,7 @@ function GoogleBtn() {
         const startDate = '2023-06-07';
         const endDate = '2023-09-07';
         const dimensions = ['PAGE'];
-        const rowLimit= 100;
+        const rowLimit= 10;
         try {
           const response = await axios.post(
             'https://searchconsole.googleapis.com/webmasters/v3/sites/sc-domain%3Aenguide.pl/searchAnalytics/query?',
@@ -65,28 +65,31 @@ function GoogleBtn() {
 
   return (
     <div>
-      {isLogined ? (
-        <>
-          <GoogleLogout
+    {isLogined ? (
+      <>
+        <GoogleLogout
           clientId={CLIENT_ID}
           buttonText='Logout'
           onLogoutSuccess={logout}
           onFailure={handleLogoutFailure}
         />
-        <Dashboard data={data}></Dashboard>
-        </>
-      ) : (
-        <GoogleLogin
-          clientId={CLIENT_ID}
-          buttonText='Login'
-          onSuccess={login}
-          onFailure={handleLoginFailure}
-          cookiePolicy={'single_host_origin'}
-          responseType='code,token'
-        />
-      )}
-      
-    </div>
+        {data !== null ? (
+          <Dashboard data={data}></Dashboard>
+        ) : (
+          <p>Loading data...</p>
+        )}
+      </>
+    ) : (
+      <GoogleLogin
+        clientId={CLIENT_ID}
+        buttonText='Login'
+        onSuccess={login}
+        onFailure={handleLoginFailure}
+        cookiePolicy={'single_host_origin'}
+        responseType='code,token'
+      />
+    )}
+  </div>
   );
 }
 
