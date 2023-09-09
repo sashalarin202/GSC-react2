@@ -1,0 +1,55 @@
+.container{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* Регулируйте отступ по вашему усмотрению */
+  }
+  
+  .custom-button {
+    background-color: rgb(75, 75, 75); /* Цвет фона кнопки */
+    border: none;
+    border-radius: 10px; /* Радиус закругленных углов */
+    padding: 10px 20px; /* Внутренний отступ для кнопки */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: white;
+    margin-bottom: 5px;
+  }
+  
+  .custom-button p {
+    margin-right: 10px; /* Отступ между текстом и иконкой */
+    font-size: 30px; /* Размер текста */
+  }
+  
+  /* Остальные стили оставьте без изменений */
+  .container-discription {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    width: 235px;
+  }
+
+  .logOut{
+    margin-left: 0 auto;
+  }
+  
+  img{
+    height: 15px;
+    width: 15px;
+  }
+
+  .container-discription p {
+    font-size: 10px;
+    margin: 0 0 0 5px;
+    text-align: initial;
+  }

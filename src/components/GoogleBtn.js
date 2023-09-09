@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import  './GoogleBtn.css'
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import axios from 'axios';
+import lock from '../assets/lock.jpg';
 import Dashboard from './Dashboard/DashBoard';
 
-const CLIENT_ID = '58204115475-6jvrgo1gs61osa3b3s7mdbus03oftt3i.apps.googleusercontent.com';
+const CLIENT_ID = '58204115475-omuct51pt6u998n1mmrm5k0rjogiguv4.apps.googleusercontent.com';
 
 function GoogleBtn() {
   const [data, setData] = useState(null);
@@ -41,7 +43,6 @@ function GoogleBtn() {
           );
   
           setData(response.data.rows);
-          console.log(response.data.rows)
           if (res.profileObj) {
           }
         } catch (error) {
@@ -67,7 +68,7 @@ function GoogleBtn() {
   return (
     <div>
     {isLogined ? (
-      <>
+      <div className='logOut'>
         <GoogleLogout
           clientId={CLIENT_ID}
           buttonText='Logout'
@@ -79,16 +80,26 @@ function GoogleBtn() {
         ) : (
           <p>Loading data...</p>
         )}
-      </>
+      </div>
     ) : (
-      <GoogleLogin
-        clientId={CLIENT_ID}
-        buttonText='Login'
-        onSuccess={login}
-        onFailure={handleLoginFailure}
-        cookiePolicy={'single_host_origin'}
-        responseType='code,token'
-      />
+      <div className='container'>
+        <div className="button-container">
+          <GoogleLogin
+            clientId={CLIENT_ID}
+            buttonText='Login'
+            onSuccess={login}
+            cookiePolicy={'single_host_origin'}
+            responseType='code,token'
+            render={renderProps => (
+              <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="custom-button">Google Connect Serach Console</button>
+            )}
+          />
+        </div>
+        <div className="container-discription">
+          <img src={lock}></img>
+          <p>Secure API connection. Only keywords and their position will be accessible to the platform. No other access right</p>
+        </div>
+      </div>
     )}
   </div>
   );

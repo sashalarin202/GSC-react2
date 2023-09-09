@@ -175,124 +175,126 @@ export default function EnhancedTable({ data }) {
     
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
-        <Toolbar
-          sx={{
-            pl: { sm: 2 },
-            pr: { xs: 1, sm: 1 },
-            ...(selected.length > 0 && {
-              bgcolor: (theme) =>
-                alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-            }),
-          }}
-        >
-          {selected.length > 0 ? (
-            <Typography
-              sx={{ flex: '1 1 100%' }}
-              color="inherit"
-              variant="subtitle1"
-              component="div"
-            >
-              {selected.length} selected
-            </Typography>
-          ) : (
-            <Typography
-              sx={{ flex: '1 1 100%' }}
-              variant="h6"
-              id="tableTitle"
-              component="div"
-            >
-              Table
-            </Typography>
-          )}
-          {selected.length > 0 ? (
-            <Tooltip title="Delete">
-              <IconButton>
-                <DeleteIcon />
-              </IconButton>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Filter list">
-              <IconButton>
-                <FilterListIcon />
-              </IconButton>
-            </Tooltip>
-          )}
-        </Toolbar>
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+    <div className='container'>
+      <Box sx={{ width: '90%' }}>
+        <Paper sx={{ width: '90%', mb: 2 }}>
+          <Toolbar
+            sx={{
+              pl: { sm: 2 },
+              pr: { xs: 1, sm: 1 },
+              ...(selected.length > 0 && {
+                bgcolor: (theme) =>
+                  alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+              }),
+            }}
           >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={data.length}
-            />
-            <TableBody>
-              {visibleRows.map((row) => {
-                const isItemSelected = isSelected(row.keys[0]);
+            {selected.length > 0 ? (
+              <Typography
+                sx={{ flex: '1 1 100%' }}
+                color="inherit"
+                variant="subtitle1"
+                component="div"
+              >
+                {selected.length} selected
+              </Typography>
+            ) : (
+              <Typography
+                sx={{ flex: '1 1 100%' }}
+                variant="h6"
+                id="tableTitle"
+                component="div"
+              >
+                Table
+              </Typography>
+            )}
+            {selected.length > 0 ? (
+              <Tooltip title="Delete">
+                <IconButton>
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Tooltip title="Filter list">
+                <IconButton>
+                  <FilterListIcon />
+                </IconButton>
+              </Tooltip>
+            )}
+          </Toolbar>
+          <TableContainer>
+            <Table
+              sx={{ minWidth: 750 }}
+              aria-labelledby="tableTitle"
+              size={dense ? 'small' : 'medium'}
+            >
+              <EnhancedTableHead
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={data.length}
+              />
+              <TableBody>
+                {visibleRows.map((row) => {
+                  const isItemSelected = isSelected(row.keys[0]);
 
-                return (
-                  <TableRow
-                    hover
-                    onClick={(event) => handleClick(event, row.keys[0])}
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={row.keys[0]}
-                    selected={isItemSelected}
-                    sx={{ cursor: 'pointer' }}
-                  >
-                    <TableCell padding="checkbox">
-                      
-                    </TableCell>
-                    <TableCell
-                      component="th"
-                      id={row.keys[0]}
-                      scope="row"
-                      padding="none"
+                  return (
+                    <TableRow
+                      hover
+                      onClick={(event) => handleClick(event, row.keys[0])}
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={row.keys[0]}
+                      selected={isItemSelected}
+                      sx={{ cursor: 'pointer' }}
                     >
-                      {row.keys[0]}
-                    </TableCell>
-                    <TableCell align="right">{row.clicks}</TableCell>
-                    <TableCell align="right">{row.impressions}</TableCell>
-                    <TableCell align="right">{row.ctr}</TableCell>
-                    <TableCell align="right">{row.position}</TableCell>
+                      <TableCell padding="checkbox">
+                        
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        id={row.keys[0]}
+                        scope="row"
+                        padding="none"
+                      >
+                        {row.keys[0]}
+                      </TableCell>
+                      <TableCell align="right">{row.clicks}</TableCell>
+                      <TableCell align="right">{row.impressions}</TableCell>
+                      <TableCell align="right">{row.ctr}</TableCell>
+                      <TableCell align="right">{row.position}</TableCell>
+                    </TableRow>
+                  );
+                })}
+                {emptyRows > 0 && (
+                  <TableRow
+                    style={{
+                      height: (dense ? 33 : 53) * emptyRows,
+                    }}
+                  >
+                    <TableCell colSpan={6} />
                   </TableRow>
-                );
-              })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={data.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={data.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+        <FormControlLabel
+          control={<Switch checked={dense} onChange={handleChangeDense} />}
+          label="Dense padding"
         />
-      </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
-    </Box>
+      </Box>
+    </div>
   );
 }

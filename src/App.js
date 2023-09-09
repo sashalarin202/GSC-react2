@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { gapi } from 'gapi-script';
 import React from 'react';
 
-const clienId = "58204115475-l0adfrri5pf9nrih03c541pv9i563n3n.apps.googleusercontent.com";
+const clienId = "58204115475-omuct51pt6u998n1mmrm5k0rjogiguv4.apps.googleusercontent.com";
 
 function App() {
 
