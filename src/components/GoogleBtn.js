@@ -3,7 +3,7 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import axios from 'axios';
 import Dashboard from './Dashboard/DashBoard';
 
-const CLIENT_ID = '58204115475-l0adfrri5pf9nrih03c541pv9i563n3n.apps.googleusercontent.com';
+const CLIENT_ID = '58204115475-6jvrgo1gs61osa3b3s7mdbus03oftt3i.apps.googleusercontent.com';
 
 function GoogleBtn() {
   const [data, setData] = useState(null);
@@ -12,6 +12,7 @@ function GoogleBtn() {
 
   const login = (res) => {
     if (res.accessToken) {
+      console.log('LOGIN SUCCESS', res)
       setIsLogined(true);
       setAccessToken(res.accessToken);
     }
